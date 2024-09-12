@@ -38,12 +38,9 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       
-      - name: Print Debug Information
+      - name: Add VPS to known_hosts
         run: |
-          echo "ssh $USERNAME@$HOST 'cd $WORKDIR && git pull origin master && docker-compose down && docker-compose up --build -d'"
-        env:
-          HOST: ${{ secrets.VPS_HOST }}
-          USERNAME: ${{ secrets.VPS_USER }}
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy to VPS
         env:
