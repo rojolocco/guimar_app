@@ -1,12 +1,12 @@
-version: '3.8'
-
 services:
-  web:
-    build: .
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "80:80"
-    restart: always
-    env_file:
-      - .env
+      - "80:80"  # Mapea el puerto 80 del contenedor al puerto 80 de la máquina host
+    environment:
+      - ENVIRONMENT=production  # Puedes añadir tus variables de entorno aquí
     volumes:
-      - ./:/app
+      - .:/app  # Sincroniza el contenido del directorio actual con el directorio de trabajo en el contenedor
+    restart: always  # Reinicia automáticamente el contenedor si se detiene
