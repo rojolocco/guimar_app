@@ -1,13 +1,23 @@
 # Import libraries
+import os
 from dotenv import dotenv_values
 from supabase import create_client, Client
 
 
-config = dotenv_values(".env")
+# Primero intenta obtener las variables de entorno del sistema (usado en producción)
+url = os.getenv("SUPABASE_URL")
+key = os.getenv("SUPABASE_KEY")
 
-# Create Supabase client
-url: str = config.get("SUPABASE_URL")
-key: str = config.get("SUPABASE_KEY")
+# Si las variables no están definidas, intenta cargarlas desde el archivo .env (desarrollo)
+if not url or not key:
+    config = dotenv_values(".env")
+    url = config.get("SUPABASE_URL")
+    key = config.get("SUPABASE_KEY")
+
+# Verifica si las variables se obtuvieron correctamente
+if not url or not key:
+    raise ValueError("SUPABASE_URL o SUPABASE_KEY no están definidas.")
+
 supabase: Client = create_client(url, key)
 
 # Create CRUD operations for Supabase service
