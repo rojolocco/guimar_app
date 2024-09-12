@@ -1,16 +1,9 @@
-from fastapi import FastAPI #, File, UploadFile
-from pathlib import Path
-
-from fastapi.responses import FileResponse
+from fastapi import FastAPI
+from .routes.route_home import router_home
+from .routes.route_api import router_api
 
 app = FastAPI()
 
-# Define the path to the static files directory
-STATIC_FILES_DIR = Path(__file__).parent / "static"
-print(STATIC_FILES_DIR)
-
-
-@app.get("/")
-async def home():
-    # Serve the index.html file from the static files directory
-    return FileResponse(STATIC_FILES_DIR / "index.html")
+# Include routes
+app.include_router(router_home, tags=["Home"])
+app.include_router(router_api, prefix="/api", tags=["WhatsApp API"])
