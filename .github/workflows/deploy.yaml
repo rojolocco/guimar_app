@@ -37,6 +37,14 @@ jobs:
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      
+      - name: Print Debug Information
+        run: |
+          echo "USERNAME: $USERNAME"
+          echo "HOST: $HOST"
+        env:
+          HOST: ${{ secrets.VPS_HOST }}
+          USERNAME: ${{ secrets.VPS_USER }}
 
       - name: Deploy to VPS
         env:
