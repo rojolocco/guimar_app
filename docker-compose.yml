@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      
     ports:
       - "80:80"  # Mapea el puerto 80 del contenedor al puerto 80 de la máquina host
     environment:

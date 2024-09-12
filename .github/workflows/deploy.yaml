@@ -56,8 +56,6 @@ jobs:
 
       - name: Deploy to VPS
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
           HOST: ${{ secrets.VPS_HOST }}
           USERNAME: ${{ secrets.VPS_USER }}
           WORKDIR: /root/guimar_app
