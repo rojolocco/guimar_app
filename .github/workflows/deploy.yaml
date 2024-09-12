@@ -40,8 +40,7 @@ jobs:
       
       - name: Print Debug Information
         run: |
-          echo "USERNAME: $USERNAME"
-          echo "HOST: $HOST"
+          echo "ssh $USERNAME@$HOST 'cd $WORKDIR && git pull origin master && docker-compose down && docker-compose up --build -d'"
         env:
           HOST: ${{ secrets.VPS_HOST }}
           USERNAME: ${{ secrets.VPS_USER }}
