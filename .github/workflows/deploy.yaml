@@ -50,6 +50,8 @@ jobs:
         run: |
           ssh $USERNAME@$HOST '
             cd $WORKDIR || exit 1
+            echo "Contenido del directorio $WORKDIR:"
+            ls -la
             if [ ! -d ".git" ]; then
               echo "Error: No es un repositorio Git. Verifica la ruta y el contenido."
               exit 1
