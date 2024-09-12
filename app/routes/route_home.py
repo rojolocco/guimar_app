@@ -22,7 +22,7 @@ async def fetch_data():
 
 
 @router_home.post("/api")
-async def insert_data(data: dict):
+async def new_data(data: dict):
     res = insert_data("countries", data)
     return res
 
