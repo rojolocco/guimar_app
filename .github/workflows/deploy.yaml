@@ -43,7 +43,7 @@ jobs:
         env:
           HOST: ${{ secrets.VPS_HOST }}
           USERNAME: ${{ secrets.VPS_USER }}
-          WORKDIR: /ruta/del/proyecto  # Ajusta según la ruta de tu proyecto en el VPS
+          WORKDIR: /root/guimar_app
         run: |
           ssh $USERNAME@$HOST '
             cd $WORKDIR &&
