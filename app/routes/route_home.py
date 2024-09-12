@@ -35,6 +35,6 @@ async def delete_data_id(id: int):
 
 
 @router_home.delete("/api")
-async def delete_all_data():
+async def remove_all_data():
     res = delete_all_data("countries")
     return res
