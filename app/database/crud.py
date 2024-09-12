@@ -22,3 +22,8 @@ def insert_data(table: str, data: dict):
 # Create a function to delete data from a table
 def delete_data(table: str, id: str):
     return supabase.table(table).delete().eq('id', id).execute()
+
+# Create a function to delete all data from a table
+
+def delete_all_data(table: str):
+    return supabase.table(table).delete().execute()
