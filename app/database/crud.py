@@ -1,39 +1,72 @@
-# Import libraries
+# app/database/crud.py
 import os
 from dotenv import dotenv_values
 from supabase import create_client, Client
+from typing import Any, Dict, List
 
 
-# Primero intenta obtener las variables de entorno del sistema (usado en producción)
+# Attempt to fetch environment variables from the system (used in production)
 url = os.getenv("SUPABASE_URL")
 key = os.getenv("SUPABASE_KEY")
 
-# Si las variables no están definidas, intenta cargarlas desde el archivo .env (desarrollo)
+
+# If the environment variables are not set, try loading them from the .env file (used in development)
 if not url or not key:
     config = dotenv_values(".env")
     url = config.get("SUPABASE_URL")
     key = config.get("SUPABASE_KEY")
 
-# Verifica si las variables se obtuvieron correctamente
-if not url or not key:
-    raise ValueError("SUPABASE_URL o SUPABASE_KEY no están definidas.")
 
+# Check if the variables were successfully retrieved
+if not url or not key:
+    raise ValueError("SUPABASE_URL or SUPABASE_KEY are not defined.")
+
+
+# Initialize the Supabase client
 supabase: Client = create_client(url, key)
 
-# Create CRUD operations for Supabase service
-# Create a function to get all data from a table
-def get_all_data(table: str):
-    return supabase.table(table).select('*').execute()
 
-# Create a function to insert data into a table
-def insert_data(table: str, data: dict):
-    return supabase.table(table).insert(data).execute()
+# CRUD Operations for Supabase
 
-# Create a function to delete data from a table
-def delete_data(table: str, id: str):
-    return supabase.table(table).delete().eq('id', id).execute()
+def get_all_data(table: str) -> List[Dict[str, Any]]:
+    """
+    Fetches all rows from the specified table.
 
-# Create a function to delete all data from a table
+    Args:
+        table (str): The name of the table to fetch data from.
 
-def delete_all_data(table: str):
-    return supabase.table(table).delete().execute()
+    Returns:
+        List[Dict[str, Any]]: A list of rows from the table.
+    """
+    response = supabase.table(table).select('*').execute()
+    return response
+
+
+def insert_data(table: str, data: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Inserts a new row into the specified table.
+
+    Args:
+        table (str): The name of the table to insert data into.
+        data (Dict[str, Any]): The data to insert as a row.
+
+    Returns:
+        Dict[str, Any]: The inserted row's data.
+    """
+    response = supabase.table(table).insert(data).execute()
+    return response
+
+
+def delete_data(table: str, row_id: str) -> Dict[str, Any]:
+    """
+    Deletes a row by ID from the specified table.
+
+    Args:
+        table (str): The name of the table to delete data from.
+        row_id (str): The ID of the row to delete.
+
+    Returns:
+        Dict[str, Any]: A dictionary confirming the deletion.
+    """
+    response = supabase.table(table).delete().eq('id', row_id).execute()
+    return response
