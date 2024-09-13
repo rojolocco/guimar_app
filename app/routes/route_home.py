@@ -1,40 +1,23 @@
-# Create a fastapi route for homepage
+# app/routes/route_home.py
 from fastapi import APIRouter
 from fastapi.responses import FileResponse
-from ..database.crud import get_all_data, insert_data, delete_data
-from ..database.crud import delete_all_data
-
 from pathlib import Path
 
+
+# Define the directory path for static files
 STATIC_FILES_DIR = Path(__file__).parent.parent / "static"
 
+
+# Initialize the APIRouter instance for the homepage routes
 router_home = APIRouter()
 
 
 @router_home.get("/")
 async def home():
+    """
+    Handles GET requests to the root endpoint.
+
+    Returns:
+        FileResponse: Serves the 'index.html' file located in the static directory as the homepage.
+    """
     return FileResponse(STATIC_FILES_DIR / "index.html")
-
-
-@router_home.get("/api")
-async def fetch_data():
-    res = get_all_data("countries")
-    return res
-
-
-@router_home.post("/api")
-async def new_data(data: dict):
-    res = insert_data("countries", data)
-    return res
-
-
-@router_home.delete("/api")
-async def delete_data_id(id: int):
-    res = delete_data("countries", id)
-    return res
-
-
-@router_home.delete("/api")
-async def remove_all_data():
-    res = delete_all_data("countries")
-    return res
