@@ -18,7 +18,7 @@ RUN poetry install --no-root --no-interaction --no-ansi
 COPY . /app
 
 # Expone el puerto que usará FastAPI
-EXPOSE 80
+EXPOSE 81
 
 # Comando para ejecutar la aplicación (ajustado para el directorio 'app')
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
