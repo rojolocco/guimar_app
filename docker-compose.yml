@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
       
     ports:
-      - "80:80"  # Mapea el puerto 80 del contenedor al puerto 80 de la máquina host
+      - "81:81"  # Mapea el puerto 80 del contenedor al puerto 80 de la máquina host
     environment:
       - ENVIRONMENT=production  # Puedes añadir tus variables de entorno aquí
     volumes:
